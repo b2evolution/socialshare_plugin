@@ -8,6 +8,10 @@ class socialshare_sharethis extends pluginAddOn
 	static function get_coll_setting_definitions()
 	{
 		return array(
+			'sharethis_begin_fieldset' => array(
+				'label' => 'Sharethis settings',
+				'layout' => 'begin_fieldset',
+			),
 			'sharethis_publisher_id' => array(
 				'label' => 'Sharethis ' . T_('Publisher ID'),
 				'size' => 70,
@@ -15,13 +19,16 @@ class socialshare_sharethis extends pluginAddOn
 				'size' => 36,
 				'maxlength' => 36,
 				'note' => T_( 'This is you publisher ID in the format &laquo;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&raquo;; which you can find in the code provided by ShareThis' ),
-				'valid_pattern' => '#\w{8}-(\w{4}-){3}\w{12}#' 
+				/*'valid_pattern' => '#\w{8}-(\w{4}-){3}\w{12}#'*/
 			),
 			'sharethis_services' => array(
 				'label' => 'Sharethis ' . T_('Services'),
 				'defaultvalue' => 'twitter,facebook,pinterest,instagram,reddit,digg,myspace,delicious,stumbleupon,technorati,google_bmarks,yahoo_bmarks,yahoo_myweb,windows_live,newsvine,meneame',
 				'note' => T_( 'Comma &laquo;,&raquo; separated list of services (social/sharing sites). Leave empty to use the default list of 20 services' ),
 				'size' => 100 
+			),
+			'sharethis_end_fieldset' => array(
+				'layout' => 'end_fieldset',
 			),
 		);
 	}

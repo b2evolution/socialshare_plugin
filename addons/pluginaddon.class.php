@@ -7,9 +7,15 @@ class pluginAddOn
 		$this->plugin = $plugin;
 	}
 
+	function extract_addon_name() 
+	{
+		$name = explode('_', get_class($this));
+		return $name[1];
+	}
+
 	function get_addon_url()
 	{
-		return $this->plugin->get_plugin_url() . '/addons/' . get_class($this); 
+		return $this->plugin->get_plugin_url() . 'addons/' . $this->extract_addon_name(); 
 	}
 
 	/**

@@ -1,0 +1,45 @@
+.shareaholic_container > div {
+	display: table-cell;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	background-color: #000;
+	color: #FFF;
+	font-size: 28px;
+	cursor: pointer;
+}
+
+
+div.shareaholic_service_delicious {
+	background-color: #2d395a;
+}
+div.shareaholic_service_digg {
+	background-color: #080808;
+}
+div.shareaholic_service_facebook {
+	background-color: #3b5998
+}
+div.shareaholic_service_twitter {
+	background-color: #2ba9e1;
+}
+div.shareaholic_service_stumbleupon {
+	background-color: #ec5838;
+}
+div.shareaholic_service_reddit {
+	background-color: #7d99ad;
+}
+div.shareaholic_service_tumblr {
+	background-color: #35465d;
+}
+div.shareaholic_service_linkedin {
+	background-color: #007bb6;
+}
+div.shareaholic_service_google_plus {
+	background-color: #dd4b39;
+}
+div.shareaholic_service_pinterest {
+	background-color: #cb2027;
+}
+div.shareaholic_service_email {
+	background-color: #939598;
+}

@@ -8,18 +8,11 @@ class socialshare_addthis extends pluginAddOn
 	static function get_coll_setting_definitions()
 	{
 		return array(
-			'addthis_begin_fieldset' => array(
-				'label' => 'Addthis settings',
-				'layout' => 'begin_fieldset',
-			),
 			'addthis_publisher_id' => array(
 				'label' => T_('Addthis PubID'),
 				'size' => 70,
 				'defaultvalue' => '',
 				'note' => T_('The ID that you get from your social sharing service.'),
-			),
-			'addthis_end_fieldset' => array(
-				'layout' => 'end_fieldset',
 			),
 		);
 	}
@@ -46,29 +39,13 @@ class socialshare_addthis extends pluginAddOn
 
 	function SkinBeginHtmlHead( & $params )
 	{
-		if( $this->plugin->get_coll_enabled_addon() )
-		{
-			require_js( '//s7.addthis.com/js/300/addthis_widget.js#pubid=' . $this->coll_settings['addthis_publisher_id'], 'rsc_url', true );
-			return true;
-		}
-		else
-		{ // Unknown call, Don't render this case
-			return;
-		}
-		
+		require_js( '//s7.addthis.com/js/300/addthis_widget.js#pubid=' . $this->coll_settings['addthis_publisher_id'], 'rsc_url', true );
+		return true;
 	}
 
 	function RenderItemAsHtml( & $params )
 	{
-		if( $this->plugin->get_coll_enabled_addon() )
-		{
-			$this->insert_code_block( $params );
-			return true;
-		}
-		else
-		{ // Unknown call, Don't render this case
-			return;
-		}
-		
+		$this->insert_code_block( $params );
+		return true;
 	}
 }

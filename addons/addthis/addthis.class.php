@@ -48,9 +48,7 @@ class socialshare_addthis extends pluginAddOn
 	{
 		if( $this->plugin->get_coll_enabled_addon() )
 		{
-			global $Blog;
-
-			require_js( '//s7.addthis.com/js/300/addthis_widget.js#pubid=' . $this->plugin->get_coll_setting( 'addthis_publisher_id', $Blog ), 'rsc_url', true );
+			require_js( '//s7.addthis.com/js/300/addthis_widget.js#pubid=' . $this->coll_settings['addthis_publisher_id'], 'rsc_url', true );
 			return true;
 		}
 		else

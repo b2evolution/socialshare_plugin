@@ -2,9 +2,12 @@
 
 class pluginAddOn
 {
+	var $coll_settings;
+
 	function __construct( $plugin )
 	{
 		$this->plugin = $plugin;
+		$this->load_coll_settings();
 	}
 
 	function extract_addon_name() 
@@ -16,6 +19,27 @@ class pluginAddOn
 	function get_addon_url()
 	{
 		return $this->plugin->get_plugin_url() . 'addons/' . $this->extract_addon_name(); 
+	}
+
+	function load_coll_settings()
+	{
+		if( is_array( $this->coll_settings ) )
+		{
+			return true;
+		}
+
+		global $Blog;
+
+		$this->coll_settings = array();
+
+		$coll_setting_definitions = $this->get_coll_setting_definitions();
+
+		foreach( $coll_setting_definitions as $setting_name => $setting_value )
+		{
+			$this->coll_settings[$setting_name] = $this->plugin->get_coll_setting( $setting_name, $Blog );
+		}
+
+		return;
 	}
 
 	/**

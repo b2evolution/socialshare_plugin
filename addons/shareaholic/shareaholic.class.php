@@ -10,11 +10,6 @@ class socialshare_shareaholic extends pluginAddOn
 	static function get_coll_setting_definitions()
 	{
 		return array(
-			'shareaholic_begin_fieldset' => array(
-				'label' => 'Shareaholic settings',
-				'layout' => 'begin_fieldset',
-			),
-
 			'shareaholic_site_id' => array(
 				'label' => T_('Site ID'),
 				'size' => 70,
@@ -26,10 +21,6 @@ class socialshare_shareaholic extends pluginAddOn
 				'size' => 70,
 				'defaultvalue' => '',
 				'note' => T_('The Id of the location created for your site in the Shareaholic\'s Dashboard. See documentation for details.'),
-			),
-
-			'shareaholic_end_fieldset' => array(
-				'layout' => 'end_fieldset',
 			),
 		);
 	}
@@ -56,9 +47,7 @@ class socialshare_shareaholic extends pluginAddOn
 	{
 		global $Blog;
 
-		if( $this->plugin->get_coll_enabled_addon() )
-		{
-			$script = "
+		$script = "
 //<![CDATA[
   (function() {
     var shr = document.createElement('script');
@@ -77,18 +66,11 @@ class socialshare_shareaholic extends pluginAddOn
 //]]>";
 
 			add_js_headline($script);
-		}
-		else
-		{ // Unknown call, Don't render this case
-			return;
-		}
 	}
 
 	function RenderItemAsHtml( & $params )
 	{
-		global $Blog;
-
-		if( $this->plugin->get_coll_enabled_addon() && ! empty($this->coll_settings['shareaholic_applocation_app_id']) )
+		if( ! empty($this->coll_settings['shareaholic_applocation_app_id']) )
 		{
 			$this->insert_code_block( $params );
 			return true;	

@@ -1,34 +1,32 @@
 <?php 
 
-class socialshare_plugin extends Plugin
+class shareaholic_plugin extends Plugin
 {
 	/**
 	 * Variables below MUST be overriden by plugin implementations,
 	 * either in the subclass declaration or in the subclass constructor.
 	 */
 
-	var $name;
-	var $code = 'evo_socshr';
+	var $name = 'shareaholic';
+	var $code = 'evo_shareaholic';
 	var $priority = 50;
 	var $version = '1.0';
 	var $author = 'The b2evo Group';
 	var $group = 'rendering';
 
 	var $plugin;
-	var $item_Blog;
 
 	var $available_addons;
 	var $enabled_addon;
-	var $class_prefix = 'socialshare_';
 
 	/**
 	 * Init
 	 */
 	function PluginInit( & $params )
 	{
-		$this->name = T_( 'Social Share' );
-		$this->short_desc = T_('Share contents to your favorite social networks.');
-		$this->long_desc = T_('Share contents to your favorite social networks using different sharing services.');
+		$this->name = T_( 'Shareaholic Share' );
+		$this->short_desc = T_('Share contents to your favorite social networks using the Shareaholic service.');
+		$this->long_desc = T_('Share contents to your favorite social networks using the Shareaholic service.');
 
 		$this->available_addons = $this->get_available_addons(true); // Get the available addons and load their code
 	}
@@ -68,30 +66,19 @@ class socialshare_plugin extends Plugin
 	
 	function get_coll_setting_definitions( & $params )
 	{
-		$addons_settings = array();
-		foreach ( $this->available_addons as $addon )
-		{
-			$classname = $this->class_prefix . $addon[0];
-
-			$addons_settings = array_merge($classname::get_coll_setting_definitions(), $addons_settings);
-		}
-
 		$default_params = array_merge( $params, array(
-				'default_comment_rendering' => 'never',
-				'default_post_rendering' => 'opt-in'
+				'default_post_rendering' => 'opt-out'
 			) );
 
 		$plugin_settings = array(
-							'enabled_addon' => array(
-									'label' => T_('Your sharing service'),
-									'type' => 'radio',
-									'options' => $this->available_addons,
-									'field_lines' => true,
-									'note' => '',
+							'shareaholic_enabled' => array(
+									'label' => T_('Enabled'),
+									'type' => 'checkbox',
+									'note' => 'Is the plugin enabled for this collection?',
 								),
 							);
 
-		return array_merge( $plugin_settings, $addons_settings, parent::get_coll_setting_definitions( $default_params ) ); 
+		return array_merge( $plugin_settings, socialshare_shareaholic::get_coll_setting_definitions(), parent::get_coll_setting_definitions( $default_params ) ); 
 			
 	}
 
@@ -114,18 +101,12 @@ class socialshare_plugin extends Plugin
 
 		global $Blog;
 
-		if ( isset( $Blog ) && $this->get_coll_setting( 'enabled_addon', $Blog ) )
+		if( $this->get_coll_setting( 'shareaholic_enabled', $Blog ) )
 		{
-			if( $enabled_addon = $this->get_coll_setting( 'enabled_addon', $Blog ) )
-			{
-				$classname = $this->class_prefix . $enabled_addon;
-				$this->enabled_addon = new $classname($this);
+			$this->enabled_addon = new socialshare_shareaholic($this);
 
-				return true;
-			}
+			return true;
 		}
-
-		return false;
 	}
 
 

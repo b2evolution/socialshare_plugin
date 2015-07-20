@@ -23,8 +23,8 @@ class socialshare_sharethis extends pluginAddOn
 			),
 			'sharethis_services' => array(
 				'label' => 'Sharethis ' . T_('Services'),
-				'defaultvalue' => 'twitter,facebook,pinterest,instagram,reddit,digg,myspace,delicious,stumbleupon,technorati,google_bmarks,yahoo_bmarks,yahoo_myweb,windows_live,newsvine,meneame',
-				'note' => T_( 'Comma &laquo;,&raquo; separated list of services (social/sharing sites). Leave empty to use the default list of 20 services' ),
+				'defaultvalue' => 'twitter,facebook,pinterest,linkedin',
+				'note' => T_( 'Comma &laquo;,&raquo; separated list of services (social/sharing sites). Leave empty to use the default list provided by Sharethis' ),
 				'size' => 100 
 			),
 			'sharethis_end_fieldset' => array(
@@ -69,8 +69,8 @@ class socialshare_sharethis extends pluginAddOn
 			global $Blog;
 
 			$url = "http://w.sharethis.com/widget/?tabs=web%2Cpost%2Cemail&amp;charset=utf-8&amp;services=";
-			$url .= urlencode( $this->plugin->get_coll_setting( 'sharethis_services', $Blog ) ) ;
-			$url .= '&amp;style=default&amp;publisher=' . $this->plugin->get_coll_setting( 'sharethis_publisher_id', $Blog );
+			$url .= urlencode( $this->coll_settings['sharethis_services'] ) ;
+			$url .= '&amp;style=default&amp;publisher=' . $this->coll_settings['sharethis_publisher_id'];
 			
 			require_js( $url );
 			return true;
